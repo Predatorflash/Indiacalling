@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="StyleBasic.css"/>
+
+
+</head>
+
+<body>
+
+ <a href="indexeff.html"  style="position:absolute;left:0;top:0;font-color:red"> <img src="logo2.png" alt="Home" title="Home"  style="width:150px;height:100px;border:0;"></a>
+	<h2  align="center"><font color="white">Welcome to India Calling</font></h2>
+	<h3 align="center"><font color="white">Please Login to continue</font></h3>
+
+	<center>
+	
+	   <button onclick="document.getElementById('id01').style.display='block'" style="width: 182px;"><h4>Login</h4></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="document.getElementById('id02').style.display='block'" style="width: 175px;"><h4>SignUp</h4></button>
+	
+	<div id="id01" class="modal" align="left">
+
+		<form class="modal-content animate" method=post action="LoginnServlet?param=login" id="f1">
+	
+
+			<div class="container">
+				<label><b>UserName</b></label> <input type="text" placeholder="Enter UserName" name="uname" required  "> <label><b>Password</b></label>
+				<input type="password" placeholder="Enter Password" name="passwd" required>
+
+				<button type="submit">Login</button>
+		
+			</div>
+
+			<div class="container" style="background-color: #f1f1f1">
+				<button type="button"
+					onclick="this.form.reset(); document.getElementById('id01').style.display='none';"
+					class="cancelbtn">Cancel</button>
+				<span class="psw">Forgot <a href="ForgotPass.html">password?</a></span>
+			</div>
+		</form>
+	</div>
+	<div id="id02" class="modal" align="left">
+
+		<form class="modal-content animate"  method="post" action="SignUpServlet" name="myform" id="f2" onsubmit=" return onclick1();">
+			
+			
+
+			<div class="container">
+				<label><b>Contact Number</b></label> 
+				<input type="text"	placeholder="Enter ContactNumber" id="contact1" name="contact1"  required  maxlength='10' onblur="return validateContact(this);"> 
+					<label><b>Username</b></label>
+				<input type="text"	placeholder="Enter Name" name="uname1" id="uname1" required> 
+					<label><b>Email</b></label>
+				<input type="text"	placeholder="Enter Email" id="email1" name="email1" required onblur="return validateEmail(this);"> 
+				<label><b>Password</b></label>
+				<input type="password" placeholder="Enter Password" id="pass1" name="pass1" required><label><b>Re Enter Password</b></label>
+				<input type="password" placeholder="Enter Password" id="pass2" name="pass2"required  onkeyup="checkPass() ; return false;">
+				<button type="submit"   >Create Account</button>
+				
+		
+			</div>
+
+			<div class="container" style="background-color: #f1f1f1">
+			<button type="button"
+					onclick="this.form.reset();document.getElementById('id02').style.display='none';"
+					class="cancelbtn" >Cancel</button>
+			
+			</div>
+		</form>
+		
+	</div>
+
+	<script>
+// Get the modal
+var modal = document.getElementById('id01');
+var f1=document.getElementById('f1');
+var f2=document.getElementById('f2');
+var modal2=document.getElementById('id02')
+var flagcontact=false;
+var flagemail=false;
+var flagpass=false;
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+    	f1.reset();
+    
+    	
+        modal.style.display = "none";
+        
+    }
+     if (event.target == modal2) {
+     f2.reset();
+     	pass2 = document.getElementById('pass2');
+     	  contact1=document.getElementById('contact1');
+     	       email1=document.getElementById('email1');
+    	 pass2.style.backgroundColor = "";
+    	   contact1.style.backgroundColor = "";
+        modal2.style.display = "none";
+        email1.style.backgroundColor = "";
+    }
+}
+
+function onclick1()  
+{ if(flagcontact && flagemail && flagpass) {
+	alert('Registered successfully! Please Login.');  
+	return true;   
+	}
+   f2.reset();
+   pass2 = document.getElementById('pass2');
+     	  contact1=document.getElementById('contact1');
+     	       email1=document.getElementById('email1');
+    	 pass2.style.backgroundColor = "";
+    	   contact1.style.backgroundColor = "";
+    	    email1.style.backgroundColor = "";
+	return false;
+ }  
+ function validateContact(contactfield)
+ {
+  var goodColor = "#66cc66";
+  var badColor = "#ff6666";
+    contact1=document.getElementById('contact1');
+    var reg1 = /^([7-9])+([0-9]{9})$/;
+     if (reg1.test(contactfield.value) == false) 
+        {
+          contact1.style.backgroundColor = badColor;
+            return false;
+        }
+        	  contact1.style.backgroundColor = goodColor;
+        	  flagcontact=true;
+        return true;
+ }
+
+function validateEmail(emailField){
+ var goodColor = "#66cc66";
+        var badColor = "#ff6666";
+        email1=document.getElementById('email1');
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+        if (reg.test(emailField.value) == false) 
+        {
+           email1.style.backgroundColor = badColor;
+      
+            return false;
+        }
+		  email1.style.backgroundColor = goodColor;
+		  flagemail=true;
+        return true;
+
+
+}
+
+function checkPass()
+    {
+        //Store the password field objects into variables ...
+        var pass1 = document.getElementById('pass1');
+        var pass2 = document.getElementById('pass2');
+        //Store the Confimation Message Object ...
+        
+        //Set the colors we will be using ...
+        var goodColor = "#66cc66";
+        var badColor = "#ff6666";
+        //Compare the values in the password field 
+        //and the confirmation field
+        if(pass1.value == pass2.value){
+            //The passwords match. 
+            //Set the color to the good color and inform
+            //the user that they have entered the correct password 
+            pass2.style.backgroundColor = goodColor;
+            flagpass=true;
+       return true;
+           
+        }else{
+            //The passwords do not match.
+            //Set the color to the bad color and
+            //notify the user.
+            pass2.style.backgroundColor = badColor;
+               
+           return false;
+          
+        }
+    }  </script>
+</body>
+</html>
